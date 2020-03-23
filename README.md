@@ -33,7 +33,7 @@ You can find a detailed [project rubric, here](https://review.udacity.com/#!/rub
 ```bash
 python app.py
 #Run the script in a new terminal
-sh make_prediction
+sh make_prediction.sh
 ```
 ### 2. Running the application in a docker
 
