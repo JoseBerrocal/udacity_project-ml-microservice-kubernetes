@@ -1,4 +1,4 @@
-<include a CircleCI status badge, here>
+[![CircleCI](https://circleci.com/gh/JoseBerrocal/udacity_project-ml-microservice-kubernetes.svg?style=svg)](https://circleci.com/gh/JoseBerrocal/udacity_project-ml-microservice-kubernetes)
 
 ## Project Overview
 
@@ -28,15 +28,51 @@ You can find a detailed [project rubric, here](https://review.udacity.com/#!/rub
 * Create a virtualenv and activate it
 * Run `make install` to install the necessary dependencies
 
-### Running `app.py`
+### 1. Running the application in a standalone environment
 
-1. Standalone:  `python app.py`
-2. Run in Docker:  `./run_docker.sh`
-3. Run in Kubernetes:  `./run_kubernetes.sh`
+```bash
+python app.py
+#Run the script in a new terminal
+sh make_prediction
+```
+### 2. Running the application in a docker
+
+```bash
+#Execute the script to deploy a container runing app.py
+./run_docker.sh
+#Modify the port to 5001 and the IP to 127.0.0.1 in "make_prediction.sh"
+#Run the script in a new terminal
+sh make_prediction
+```
+
+### 2. Running the application in kubernetes
+
+```bash
+#Execute as root
+minikube start --vm-driver=none 
+./run_kubernetes.sh
+#Get the Intenal IP of the service "ml-microservice-http"
+kubectl get services
+#Modify the port to 80 and the IP in "make_prediction.sh" and execute it 
+sh make_prediction.sh
+```
+
+
 
 ### Kubernetes Steps
 
-* Setup and Configure Docker locally
-* Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
+* Setup and Configure [Docker](https://docs.docker.com/install/) locally
+* Setup and Configure [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) locally
+* Setup and Configure [Kubernetes](https://kubernetes.io/docs/tasks/tools/install-kubectl/) or [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) locally.  Minikube contain Kubernetes
+* Create Flask app in Container. [Example](https://runnable.com/docker/python/dockerize-your-flask-application)
+```bash
+#Create your docker container locally with the flask application
+./run_docker.sh
+#Upload the container to the docker repository
+./upload_docker.sh
+```
+* Run via kubectl ([Reference](https://kubernetes.io/docs/reference/kubectl/cheatsheet/))
+```bash
+minikube start --vm-driver=none 
+./run_kubernetes.sh
+```
